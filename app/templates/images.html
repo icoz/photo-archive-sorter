@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ HOME }}
+{% endblock %}
+{% block body %}
+<table border="1">
+    <thead>
+        <th>Name</th>
+        <th>file_size</th>
+        <th>phash</th>
+        <th>sha256</th>
+    </thead>
+    <tbody>
+        {% for r in data %}
+        <tr>
+            <td><a href="{{ url_for('image_info', id=r['_id']) }}">{{ r['name'] }}</a></td>
+            <td>{{ r['size'] }}</td>
+            <td>{{ r['phash'] }}</td>
+            <td>
+                {{ r['sha256'] }}
+            <!-- {{ r['exif'] }} -->
+<!--                 <table>
+                    <thead>
+                        <th>Param</th>
+                        <th>Value</th>
+                    </thead>
+                    <tbody>
+                        {% for r2 in r['exif'] %}
+                        <tr>
+                            <td>{{ r2 }}</td>
+                            <td>{{ r['exif'][r2] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+ -->
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if skip>=20 %}
+<a href="{{ url_for('list_images',skip=skip-20)}}">Prev</a>
+{% endif %}
+<a href="{{ url_for('list_images',skip=skip+20)}}">Next</a>
+{% endblock %}

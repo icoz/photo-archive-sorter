@@ -1,0 +1,4 @@
+Pillow>=2.1.0
+pytest>=2.7.2
+numpy>=1.7
+Photohash>=0.4

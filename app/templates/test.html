@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ Test }}
+{% endblock %}
+{% block body %}
+    {% for k in ra %}
+        <p>{{ k }}: {{ ra.get(k) }}</p>"
+    {% endfor %}
+{% endblock %}
