@@ -24,6 +24,9 @@ def save_image(file=None):
 # get EXIF
     exif_data = { TAGS[k]: exif[k] for k in exif if TAGS[k] not in ["MakerNote","UserComment"]}
 # make metadata to file
+    dt_date, dt_time = exif_data['DateTime'].split(" ")
+    dt_year, dt_month, dt_day = dt_date.split(":")
+    dt_hour, dt_min, dt_sec = dt_time.split(":")
     file_data = {
         "name": file.filename,
         # "fs_id": file_id,
@@ -31,6 +34,16 @@ def save_image(file=None):
         "exif": exif_data,
         "sha256": hash,
         "phash": phash_v.asString(),
+        "date": {
+            "y": dt_year,
+            "m": dt_month,
+            "d": dt_day
+            },
+        "time": {
+            "h": dt_hour,
+            "m": dt_min,
+            "s": dt_sec
+        }
     }
     # pprint(file_data)
     q_res = db.images.find_one({"sha256": hash})
